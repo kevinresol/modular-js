@@ -3,28 +3,26 @@
 // https://github.com/HaxeFoundation/haxe/issues/1349
 // http://stackoverflow.com/a/17638540/1732990
 
-define(function() {
-    var $fid = 0;
+var $fid = 0;
 
-    return self["$bind"] = function $bind(obj, method) {
-        var func, mId;
+module.exports = function $bind(obj, method) {
+    var func, mId;
 
-        if( method == null ) { return null; }
-        mId = method._i = method._i || $fid++;
+    if( method == null ) { return null; }
+    mId = method._i = method._i || $fid++;
 
-        if( obj._c == null ) {
-            obj._c = {};
-        } else {
-            func = obj._c[mId];
-        }
-        if( func == null ) {
-            func = function(){
-                return func._m.apply(func._s, arguments);
-            };
-            func._s = obj;
-            func._m = method;
-            obj._c[mId] = func;
-        }
-        return func;
-    };
-});
+    if( obj._c == null ) {
+        obj._c = {};
+    } else {
+        func = obj._c[mId];
+    }
+    if( func == null ) {
+        func = function(){
+            return func._m.apply(func._s, arguments);
+        };
+        func._s = obj;
+        func._m = method;
+        obj._c[mId] = func;
+    }
+    return func;
+};

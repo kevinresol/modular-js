@@ -30,8 +30,8 @@ class Package extends Module implements IPackage {
 
     public function getCode() {
         var pre = new haxe.Template('// Package: ::packageName::
-define([::dependencyNames::],
-       function (::dependencyVars::) {
+::foreach dependencies::var ::varName:: = require(::name::);
+::end::
 ');
 
         //  Collect the package's dependencies into one array
@@ -51,21 +51,19 @@ define([::dependencyNames::],
         };
 
         for (member in members) {
-            code += member.getCode().indent(1);
+            code += member.getCode().indent(0);
         }
 
         var post:haxe.Template;
 
         if (memberValues.length == 1) {
             data.singleMember = memberValues[0].name;
-            post = new haxe.Template('return ::singleMember::;
-});
+            post = new haxe.Template('module.exports = ::singleMember::;
 ');
         } else {
-            post = new haxe.Template('return {
+            post = new haxe.Template('module.exports = {
         ::members::
     };
-});
 ');
         }
 
@@ -82,8 +80,16 @@ define([::dependencyNames::],
         var depKeys = [for (k in dependencies.keys()) k];
         var preData = {
             packageName: name,
-            dependencyNames: depKeys.map(getDependencyName).join(', '),
-            dependencyVars: [for (k in depKeys) k.replace('.', '_').replace('/', '_')].join(', '),
+			dependencies: [for (k in depKeys) {
+				name: getDependencyName(k),
+				varName: switch k {
+					case 'bind_stub': "$bind";
+					case 'iterator_stub': "$iterator";
+					case 'extend_stub': "$extend";
+					case 'enum_stub': "$estr";
+					case k: k.replace('.', '_');
+				}
+			}],
         };
         code = pre.execute(preData) + code;
 

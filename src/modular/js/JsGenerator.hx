@@ -399,7 +399,7 @@ class JsGenerator
 
 		curBuf = mainBuf;
 
-		print("self['$hxClasses'] = {};");
+		print("this['$hxClasses'] = {};");
 
 		if (hasFeature('has.enum')) {
 			depend_on_file('enum_stub', mainPack);

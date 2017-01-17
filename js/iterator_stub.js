@@ -1,10 +1,10 @@
-define(['./HxOverrides', './bind_stub'], function(HxOverrides) {
-    return self['$iterator'] = function $iterator(o) {
-        if( o instanceof Array ) {
-            return function() {
-                return HxOverrides.iter(o);
-            };
-        }
-        return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator;
+var HxOverrides = require('./HxOverrides');
+var $bind = require('./bind_stub');
+module.exports = function $iterator(o) {
+    if( o instanceof Array ) {
+        return function() {
+            return HxOverrides.iter(o);
+        };
     }
-});
+    return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator;
+}
