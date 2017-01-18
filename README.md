@@ -1,10 +1,11 @@
 # What is different from the original repo?
 
 This repo is modified to produce ES6-style export/import statements. 
-So you will need a ES6 compiler (e.g. Babel)
+So you will need a ES6 compiler for postprocessing the Haxe-generated code (e.g. Babel)
 
 This is done so because the `export default` syntax is a quick and easy way to solve circular reference issue.
-The next step would be to output CommonJS-compatible codes, which can be done by referencing what Babel does in transforming the export/import statements.
+The next step would be to output CommonJS-compatible codes (so the output can be used directly without postprocessing),
+this can be done by referencing what Babel does in transforming the export/import statements.
 
 ### Caveats
 
