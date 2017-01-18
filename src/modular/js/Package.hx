@@ -57,17 +57,15 @@ class Package extends Module implements IPackage {
         var post:haxe.Template;
 
         if (memberValues.length == 1) {
-            data.singleMember = memberValues[0].name;
-            post = new haxe.Template('module.exports = ::singleMember::;
-');
+            code = code.replace('var ${memberValues[0].name} =', 'var ${memberValues[0].name} = module.exports =');
         } else {
             post = new haxe.Template('module.exports = {
         ::members::
     };
 ');
+            code += post.execute(data);
         }
 
-        code += post.execute(data);
 
         if (code.indexOf("$bind(") != -1) {
             gen.addDependency('bind_stub', this);
