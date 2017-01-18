@@ -32,6 +32,7 @@ class Package extends Module implements IPackage {
         var pre = new haxe.Template('// Package: ::packageName::
 ::foreach dependencies::import ::varName:: from ::name::;
 ::end::
+var __map_reserved = {} // TODO: add this only if Map is used
 ');
 
         //  Collect the package's dependencies into one array
