@@ -1,5 +1,5 @@
-var HxOverrides = require('./HxOverrides');
-var $bind = require('./bind_stub');
+import HxOverrides from './HxOverrides';
+import $bind from './bind_stub';
 export default function $iterator(o) {
     if( o instanceof Array ) {
         return function() {
