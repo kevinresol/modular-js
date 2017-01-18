@@ -6,6 +6,21 @@ So you will need a ES6 compiler (e.g. Babel)
 This is done so because the `export default` syntax is a quick and easy way to solve circular reference issue.
 The next step would be to output CommonJS-compatible codes, which can be done by referencing what Babel does in transforming the export/import statements.
 
+### Caveats
+
+Accessing static var in circular-referenced modules may cause problems. So try to avoid codes like:
+
+```haxe
+class Foo {
+  public static var foo = Bar.bar;
+}
+
+class Bar {
+  public static var bar = 1;
+  public static var foo = Foo;
+}
+```
+
 # Modular Javascript - A Custom Javascript Generator for Haxe
 
 Quite simply, the modular-js generator will output ES6 modules for each class in your Haxe application.  The filename is generated from the parent package of each class.
