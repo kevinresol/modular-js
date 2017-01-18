@@ -168,15 +168,14 @@ class JsGenerator
 
 	function saveContent(path, data, overwrite=true) {
 		if (FileSystem.exists(path)) {
-			var newHash = Md5.encode(data);
-			var oldHash = Md5.encode(sys.io.File.getContent(path));
-			if(newHash == oldHash) return;
+			var oldData = sys.io.File.getContent(path);
+			if(data == oldData) return;
 			
 			if(overwrite == false) {
 				var now = Date.now().format("%s");
 				var newPath = '$path.$now';
 
-				if (oldHash != newHash) {
+				if (data == oldData) {
 					Context.warning('File already exists at $path. Saving to $newPath.', Context.currentPos());
 					path = newPath;
 				}

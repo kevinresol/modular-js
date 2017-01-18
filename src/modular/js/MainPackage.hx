@@ -23,7 +23,7 @@ class MainPackage extends Package {
 					case 'iterator_stub': "$iterator";
 					case 'extend_stub': "$extend";
 					case 'enum_stub': "$estr";
-					case k: k.replace('.', '_');
+					case k: (gen.isJSRequire(k) ? '* as ' : '') + k.replace('.', '_');
 				}
 			}],
 		};

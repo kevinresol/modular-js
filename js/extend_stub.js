@@ -1,4 +1,4 @@
-module.exports = function $extend(from, fields) {
+export default function $extend(from, fields) {
     function Inherit() {};
     Inherit.prototype = from;
     var proto = new Inherit();

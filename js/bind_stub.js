@@ -5,7 +5,7 @@
 
 var $fid = 0;
 
-module.exports = function $bind(obj, method) {
+export default function $bind(obj, method) {
     var func, mId;
 
     if( method == null ) { return null; }
