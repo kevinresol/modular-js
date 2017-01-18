@@ -167,15 +167,20 @@ class JsGenerator
 	}
 
 	function saveContent(path, data, overwrite=true) {
-		if (FileSystem.exists(path) && overwrite == false) {
+		if (FileSystem.exists(path)) {
 			var newHash = Md5.encode(data);
 			var oldHash = Md5.encode(sys.io.File.getContent(path));
-			var now = Date.now().format("%s");
-			var newPath = '$path.$now';
+			trace(path, newHash == oldHash);
+			if(newHash == oldHash) return;
+			
+			if(overwrite == false) {
+				var now = Date.now().format("%s");
+				var newPath = '$path.$now';
 
-			if (oldHash != newHash) {
-				Context.warning('File already exists at $path. Saving to $newPath.', Context.currentPos());
-				path = newPath;
+				if (oldHash != newHash) {
+					Context.warning('File already exists at $path. Saving to $newPath.', Context.currentPos());
+					path = newPath;
+				}
 			}
 		}
 		sys.io.File.saveContent(path, data);
