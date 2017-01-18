@@ -170,7 +170,6 @@ class JsGenerator
 		if (FileSystem.exists(path)) {
 			var newHash = Md5.encode(data);
 			var oldHash = Md5.encode(sys.io.File.getContent(path));
-			trace(path, newHash == oldHash);
 			if(newHash == oldHash) return;
 			
 			if(overwrite == false) {
