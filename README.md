@@ -1,13 +1,21 @@
+# What is different from the original repo?
+
+This repo is modified to produce ES6-style export/import statements. 
+So you will need a ES6 compiler (e.g. Babel)
+
+This is done so because the `export default` syntax is a quick and easy way to solve circular reference issue.
+The next step would be to output CommonJS-compatible codes, which can be done by referencing what Babel does in transforming the export/import statements.
+
 # Modular Javascript - A Custom Javascript Generator for Haxe
 
-Quite simply, the modular-js generator will output AMD modules for each class in your Haxe application.  The filename is generated from the parent package of each class.
+Quite simply, the modular-js generator will output ES6 modules for each class in your Haxe application.  The filename is generated from the parent package of each class.
 
 ## Usage
 
 1. Install modular-js with haxelib
 
   ```
-  haxelib install modular-js
+  haxelib git modular-js https://github.com/kevinresol/modular-js
   ```
 
 2. Add the generator in your HXML file.
