@@ -1,3 +1,5 @@
+Deprecated: see [hxgenjs](https://github.com/kevinresol/hxgenjs)
+
 # What is different from the original repo?
 
 This repo is modified to produce ES6-style export/import statements. 
